@@ -35,10 +35,8 @@ import './App.css'
       return;
     }
 
-    setFeedback(
-      `Frames analyzed: ${data.framesProcessed}
-       Frames with body detected: ${data.framesWithPose}`
-    );
+    setFeedback(data.ai_summary);
+
   } catch (err) {
     console.error(err);
     setFeedback("Server error. Is backend running?");
