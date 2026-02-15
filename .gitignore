@@ -8,6 +8,6 @@ node_modules/
 
 # macOS
 .DS_Store
-
-backend/.env
+# OpenAI
+backend/.env:1
 
