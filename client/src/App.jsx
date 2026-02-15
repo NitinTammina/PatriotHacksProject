@@ -1,48 +1,64 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
-  function App() {
+function App() {
   const [videoFile, setVideoFile] = useState(null);
   const [feedback, setFeedback] = useState("Waiting for analysis...");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleVideoUpload = async (event) => {
-  const file = event.target.files[0];
-  if (!file) return;
+    const file = event.target.files[0];
+    if (!file) return;
 
-  // show video locally
-  const url = URL.createObjectURL(file);
-  setVideoFile(url);
+    console.log("File selected:", file.name, file.size, "bytes");
 
-  // send to backend
-  const formData = new FormData();
-  formData.append("file", file); // MUST be "file" (matches FastAPI)
+    // show video locally
+    const url = URL.createObjectURL(file);
+    setVideoFile(url);
 
-  setFeedback("Analyzing form...");
+    // send to backend - USE CODESPACES URL
+    const formData = new FormData();
+    formData.append("file", file);
 
-  try {
-    const res = await fetch("http://localhost:8000/analyze", {
-      method: "POST",
-      body: formData,
-    });
+    setFeedback("Analyzing form...");
+    setIsLoading(true);
 
-    const data = await res.json();
-    console.log(data);
+    try {
+      // Use Codespaces forwarded URL - CORS is already configured
+      const backendUrl = "https://friendly-orbit-jjrq75v6446r2q6jp-8000.app.github.dev/analyze";
+      
+      console.log("Uploading to:", backendUrl);
+      
+      const res = await fetch(backendUrl, {
+        method: "POST",
+        body: formData,
+      });
 
-    if (data.error) {
-      setFeedback(data.error);
-      return;
+      console.log("Response status:", res.status);
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error("Error response:", errorText);
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      
+      const data = await res.json();
+      console.log("Success! Data:", data);
+
+      if (data.error) {
+        setFeedback(`Error: ${data.error}`);
+        return;
+      }
+
+      setFeedback(data.ai_summary || "Analysis complete!");
+
+    } catch (err) {
+      console.error("Upload error:", err);
+      setFeedback(`Connection failed: ${err.message}`);
+    } finally {
+      setIsLoading(false);
     }
-
-    setFeedback(data.ai_summary);
-
-  } catch (err) {
-    console.error(err);
-    setFeedback("Server error. Is backend running?");
-  }
- };
-
+  };
 
   return (
     <>
@@ -50,9 +66,7 @@ import './App.css'
         Fit Trainer 🏋️‍♂️
       </header>
     
-
       <main className="main-container">
-
         <div className="motto">
           AI powered application to improve your fitness
         </div>
@@ -60,46 +74,51 @@ import './App.css'
         <div className="content-row">
           <div className="video-section">
             <video className="video-feed"
-              src={videoFile || ""}
+              src={videoFile || null}
               controls
               autoPlay
               playsInline
             />
             <label 
-              className= "button"
+              className="button"
               htmlFor="video-upload"
               style={{
                 display: "inline-block",
                 marginTop: "15px",
                 padding: "10px 20px",
-                backgroundColor: "#6c2929",
+                backgroundColor: isLoading ? "#999" : "#6c2929",
                 color: "rgb(249, 247, 243)",
                 borderRadius: "8px",
-                cursor: "pointer",
+                cursor: isLoading ? "not-allowed" : "pointer",
                 fontWeight: "bold",
                 fontSize: "23px",
                 textAlign: "center",
                 writingMode: "vertical-rl",   
-                transform: "rotate(180deg)"
-                
+                transform: "rotate(180deg)",
+                opacity: isLoading ? 0.6 : 1
               }}
-            >UPLOAD VIDEO</label>
-            <input type="file" id="video-upload" accept="video/*" onChange={handleVideoUpload}
-             style={{ display: "none" }} />
-        </div>
-        
+            >
+              {isLoading ? "ANALYZING..." : "UPLOAD VIDEO"}
+            </label>
+            <input 
+              type="file" 
+              id="video-upload" 
+              accept="video/*" 
+              onChange={handleVideoUpload}
+              disabled={isLoading}
+              style={{ display: "none" }} 
+            />
+          </div>
 
-       <div className="ai-section">
-        <h2>AI Form Feedback</h2>
-          <div className="ai-box">
-            {feedback}
+          <div className="ai-section">
+            <h2>AI Form Feedback</h2>
+            <div className="ai-box">
+              {feedback}
+            </div>
           </div>
         </div>
-       </div>
-
       </main>
     </>
-        
   );
 }
 
