@@ -1,6 +1,8 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from videoAnalyzer import analyze_video
+from aisummarizer import summarize_feedback
 
 import os
 import tempfile
@@ -93,8 +95,12 @@ async def analyze(file: UploadFile = File(...)):
         tmp.write(await file.read())
 
     try:
-        result = run_pose_on_video(video_path)
+        result = analyze_video(video_path)
         result["filename"] = file.filename
+
+        ai_summary = summarize_feedback(result)
+        result["ai_summary"] = ai_summary
+
         return JSONResponse(result)
     finally:
         try:
