@@ -10,6 +10,11 @@ import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
 
+
+
+REFERENCE_VIDEO = os.path.join(os.path.dirname(__file__), "models", "shoulder_press_reference.mp4") #This is for the video upload 
+
+
 app = FastAPI(title="Pushup Analyzer API")
 
 app.add_middleware(
