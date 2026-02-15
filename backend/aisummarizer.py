@@ -12,8 +12,8 @@ def summarize_feedback(feedback_json: dict) -> str:
 
     prompt = (
         "You are a fitness coach AI. Read the following exercise feedback data "
-        "from a user's shoulder press workout and summarize it in 3-4 sentences, "
-        "giving actionable recommendations for improving form:\n\n"
+        "from a user's shoulder press workout and summarize it in 3-4 sentences with the number of reps, "
+        "giving actionable recommendations for improving form:, do not include any percentages or data just tell them what to do and improve\n\n"
         f"{feedback_str}\n\nSummary:"
     )
 
