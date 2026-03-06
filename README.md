@@ -394,38 +394,12 @@ SOFTWARE.
 - **OpenCV contributors** - For computer vision capabilities
 - **All contributors and testers** - Your feedback makes this better!
 
-## 📧 Contact & Support
-
-### Get Help
-- 📖 **Documentation**: [Read the docs](https://github.com/yourusername/ai-fitness-trainer/wiki)
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/ai-fitness-trainer/issues)
-- 💬 **Discussions**: [GitHub Discussions](https://github.com/yourusername/ai-fitness-trainer/discussions)
-- 💬 **Discord**: [Join our community](https://discord.gg/yourserver)
-
-### Contact Information
-- **Email**: your.email@example.com
-- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
-- **Website**: [yourwebsite.com](https://yourwebsite.com)
-
-### Reporting Security Issues
-If you discover a security vulnerability, please email security@yourproject.com instead of using the issue tracker.
+vulnerability, please email security@yourproject.com instead of using the issue tracker.
 
 ## ⭐ Star Us!
 
 If you find this project helpful, please consider giving it a star on GitHub! It helps others discover the project and motivates us to keep imp
 roving it.
-
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/ai-fitness-trainer.svg?style=social&label=Star)](https://github.com/yourusern
-ame/ai-fitness-trainer)
-
-## 📈 Project Stats
-
-![GitHub issues](https://img.shields.io/github/issues/yourusername/ai-fitness-trainer)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/yourusername/ai-fitness-trainer)
-![GitHub](https://img.shields.io/github/license/yourusername/ai-fitness-trainer)
-![GitHub last commit](https://img.shields.io/github/last-commit/yourusername/ai-fitness-trainer)
-
----
 
 ## 📚 Additional Resources
 
@@ -562,7 +536,5 @@ models/*.onnx
 
 Made with ❤️ by fitness enthusiasts, for fitness enthusiasts
 
-<<<<<<< HEAD
 **Train smarter, not harder! 💪🤖**
-=======
-**Train smarter, not harder! 💪🤖**
+
