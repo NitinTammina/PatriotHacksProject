@@ -383,7 +383,7 @@ SOFTWARE.
 
 ## 👥 Authors
 
-- **Your Name** - *Initial work* - [YourGitHub](https://github.com/yourusername)
+- Abas Yakoobi, Nitin Tammina, Abel Tolla
 
 ## 🙏 Acknowledgments
 
